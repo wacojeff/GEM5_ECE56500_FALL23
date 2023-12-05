@@ -120,6 +120,22 @@ def config_cache(options, system):
         # same clock as the CPUs.
         system.l2 = l2_cache_class(clk_domain=system.cpu_clk_domain,
                                    **_get_cache_opts('l2', options))
+        if(options.replacement_policy == "Shepherd"):
+            system.l2.replacement_policy = Shepherd()
+        elif(options.replacement_policy == "FIFORP"):
+            system.l2.replacement_policy = FIFORP()
+        elif(options.replacement_policy == "RandomRP"):
+            system.l2.replacement_policy = RandomRP()
+        elif(options.replacement_policy == "MRURP"):
+            system.l2.replacement_policy = MRURP()
+        elif(options.replacement_policy == "DuelingRP"):
+            system.l2.replacement_policy = DuelingRP()
+        elif(options.replacement_policy == "WeightedLRURP"):
+            system.l2.replacement_policy = WeightedLRURP()
+        elif(options.replacement_policy == "BRRIPRP"):
+            system.l2.replacement_policy = BRRIPRP()
+        else:
+            system.l2.replacement_policy = LRURP()
 
         system.tol2bus = L2XBar(clk_domain = system.cpu_clk_domain)
         system.l2.cpu_side = system.tol2bus.mem_side_ports
@@ -132,7 +148,8 @@ def config_cache(options, system):
         if options.caches:
             icache = icache_class(**_get_cache_opts('l1i', options))
             dcache = dcache_class(**_get_cache_opts('l1d', options))
-
+            icache.replacement_policy = LRURP()
+            dcache.replacement_policy = LRURP()
             # If we have a walker cache specified, instantiate two
             # instances here
             if walk_cache_class:
