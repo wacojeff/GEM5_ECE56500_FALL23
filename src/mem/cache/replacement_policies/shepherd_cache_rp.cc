@@ -152,6 +152,13 @@ ShepherdReplacementPolicy::getVictim(const ReplacementCandidates& candidates) co
                     victim->replacementData)->lastTouchTick) {
             victim = candidate;
         }
+
+        if (std::static_pointer_cast<ShepherdReplData>(
+                    candidate->replacementData)->tickInserted <
+                std::static_pointer_cast<ShepherdReplData>(
+                    victim->replacementData)->tickInserted) {
+            victim = candidate;
+        }
     }
 
     for (const auto& candidate : candidates) {
