@@ -298,114 +298,114 @@ BENCHMARK_NAME=sjeng
 echo "$BENCHMARK_NAME result"
 echo "LRURP:"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_LRURP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'overallMissRate::total'
 echo "Shepherd"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_Shepherd.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'overallMissRate::total'
 if [ "$RANDOM_RP" -eq 1 ]; then
 echo "RandomRP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_RandomRP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'overallMissRate::total'
 fi
 if [ "$FIFO_RP" -eq 1 ]; then
 echo "FIFORP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_FIFORP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'overallMissRate::total'
 fi
 echo "*****************************************************"
 BENCHMARK_NAME=leslie3d
 echo "$BENCHMARK_NAME result"
 echo "LRURP:"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_LRURP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'overallMissRate::total'
 echo "Shepherd"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_Shepherd.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'overallMissRate::total'
 if [ "$RANDOM_RP" -eq 1 ]; then
 echo "RandomRP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_RandomRP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'overallMissRate::total'
 fi
 if [ "$FIFO_RP" -eq 1 ]; then
 echo "FIFORP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_FIFORP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'overallMissRate::total'
 fi
 echo "*****************************************************"
 BENCHMARK_NAME=lbm
 echo "$BENCHMARK_NAME result"
 echo "LRURP:"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_LRURP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'overallMissRate::total'
 echo "Shepherd"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_Shepherd.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'overallMissRate::total'
 if [ "$RANDOM_RP" -eq 1 ]; then
 echo "RandomRP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_RandomRP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'overallMissRate::total'
 fi
 if [ "$FIFO_RP" -eq 1 ]; then
 echo "FIFORP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_FIFORP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'overallMissRate::total'
 fi
 echo "*****************************************************"
 BENCHMARK_NAME=astar
 echo "$BENCHMARK_NAME result"
 echo "LRURP:"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_LRURP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'overallMissRate::total'
 echo "Shepherd"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_Shepherd.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'overallMissRate::total'
 if [ "$RANDOM_RP" -eq 1 ]; then
 echo "RandomRP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_RandomRP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'overallMissRate::total'
 fi
 if [ "$FIFO_RP" -eq 1 ]; then
 echo "FIFORP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_FIFORP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'overallMissRate::total'
 fi
 echo "*****************************************************"
 BENCHMARK_NAME=milc
 echo "$BENCHMARK_NAME result"
 echo "LRURP:"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_LRURP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'overallMissRate::total'
 echo "Shepherd"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_Shepherd.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'overallMissRate::total'
 if [ "$RANDOM_RP" -eq 1 ]; then
 echo "RandomRP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_RandomRP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'overallMissRate::total'
 fi
 if [ "$FIFO_RP" -eq 1 ]; then
 echo "FIFORP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_FIFORP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'overallMissRate::total'
 fi
 echo "*****************************************************"
 BENCHMARK_NAME=namd
 echo "$BENCHMARK_NAME result"
 echo "LRURP:"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_LRURP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'overallMissRate::total'
 echo "Shepherd"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_Shepherd.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'overallMissRate::total'
 if [ "$RANDOM_RP" -eq 1 ]; then
 echo "RandomRP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_RandomRP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'overallMissRate::total'
 fi
 if [ "$FIFO_RP" -eq 1 ]; then
 echo "FIFORP"
 grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
-grep -r ./proj_results/$BENCHMARK_NAME/state_FIFORP.txt -e 'overallMissRate::total'
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'overallMissRate::total'
 fi
 
 
