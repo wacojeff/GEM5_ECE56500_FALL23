@@ -50,6 +50,11 @@ from m5.objects import *
 from m5.params import NULL
 from m5.util import addToPath, fatal, warn
 
+
+#from m5.objects import ShepherdCache
+
+
+
 addToPath('../')
 
 from ruby import Ruby
@@ -129,6 +134,7 @@ if '--ruby' in sys.argv:
 parser.add_argument("-b", "--benchmark", default="",
                  help="The benchmark to be loaded.")
 
+parser.add_argument("--replacement_policy", default="LRURP", help="Cache Replacement Policy (LRU, FIFO, etc.)")
 
 args = parser.parse_args()
 
@@ -200,6 +206,13 @@ system.cpu_voltage_domain = VoltageDomain()
 system.cpu_clk_domain = SrcClockDomain(clock = args.cpu_clock,
                                        voltage_domain =
                                        system.cpu_voltage_domain)
+
+
+#system.shepherd_cache = ShepherdCache()
+#system.shepherd_cache.cpu_side = system.membus.master
+#system.shepherd_cache.mem_side = system.system_port
+
+
 
 # If elastic tracing is enabled, then configure the cpu and attach the elastic
 # trace probe
@@ -278,6 +291,18 @@ else:
     config_filesystem(system, args)
 
 system.workload = SEWorkload.init_compatible(mp0_path)
+
+#system.cpu.l2cache = m5.objects.Cache(
+#    size='128kB',
+#    assoc=16,
+#    tag_latency=10,
+#    data_latency=10,
+#    response_latency=10,
+#    mshrs=20,
+#    tgts_per_mshr=16,
+#    write_buffers=8,
+#    replacement_policy='LRURP'
+#)
 
 if args.wait_gdb:
     system.workload.wait_for_remote_gdb = True
