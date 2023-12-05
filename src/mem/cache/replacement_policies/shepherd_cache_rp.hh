@@ -30,6 +30,7 @@ class ShepherdReplacementPolicy : public Base
     {
         /** Tick on which the entry was last touched. */
         Tick lastTouchTick;
+        Tick tickInserted;
         LOCATION Storage;
         unsigned int cntS0;
         unsigned int cntS1;
@@ -42,7 +43,7 @@ class ShepherdReplacementPolicy : public Base
         /**
          * Default constructor. Invalidate data.
          */
-        ShepherdReplData() : lastTouchTick(0), Storage(M), cntS0(1048576), cntS1(1048576), cntS2(1048576), cntS3(1048576), empty_S0(true),
+        ShepherdReplData() : lastTouchTick(0), tickInserted(0), Storage(M), cntS0(1048576), cntS1(1048576), cntS2(1048576), cntS3(1048576), empty_S0(true),
                              empty_S1(true), empty_S2(true), empty_S3(true) {}
     };
 
