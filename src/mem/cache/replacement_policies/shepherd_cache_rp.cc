@@ -32,6 +32,9 @@ ShepherdReplacementPolicy::invalidate(const std::shared_ptr<ReplacementData>& re
     // Reset last touch timestamp
     std::static_pointer_cast<ShepherdReplData>(
         replacement_data)->lastTouchTick = Tick(0);
+
+    std::static_pointer_cast<ShepherdReplData>(
+        replacement_data)->tickInserted = Tick(0);
 }
 
 void
@@ -127,6 +130,9 @@ ShepherdReplacementPolicy::reset(const std::shared_ptr<ReplacementData>& replace
     // Set last touch timestamp
     std::static_pointer_cast<ShepherdReplData>(
         replacement_data)->lastTouchTick = curTick();
+
+    std::static_pointer_cast<ShepherdReplData>(
+        replacement_data)->tickInserted = curTick();
 }
 
 ReplaceableEntry*
