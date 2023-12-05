@@ -1,0 +1,391 @@
+#parameters
+
+RANDOM_RP=0
+FIFO_RP=0
+
+RUN_L1I_CACHE=8kB
+RUN_L1D_CACHE=8kB
+RUN_L1_ASSOC=2
+RUN_L2_CACHE=512kB
+RUN_L2_ASSOC=16
+RUN_MAX_INST=1000000
+
+
+echo "################################################################################"
+echo "### PARAMETERS"
+echo "################################################################################" 
+echo ""
+echo "Replacement Policies to run: "
+echo ""
+echo "LRURP"
+echo "Shepherd"
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+    echo "RandomRP"
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+    echo "FIFORP"
+fi
+echo ""
+echo ""
+echo "Cache Parameters:"
+echo "Max Instruction Count:     $RUN_MAX_INST"
+echo "L1 Instruction Cache Size: $RUN_L1I_CACHE"
+echo "L1 Data Cache Size:        $RUN_L1D_CACHE"
+echo "L2 Cache Size:             $RUN_L2_CACHE"
+echo "L1 Associativity:          $RUN_L1_ASSOC"
+echo "L2 Associativity:          $RUN_L2_ASSOC"
+echo ""
+echo ""
+if [ $RUN_L2_ASSOC != 16 ]; then
+    echo "################################################################################"
+    echo "!! WARNING: Shepherd's cache will run at ASSOC = 16, instead of $RUN_L2_ASSOC !!"
+    echo "################################################################################"
+fi
+echo ""
+#start run script
+echo "clean-up results"
+
+rm -rf proj_results
+mkdir proj_results
+echo ""
+echo ""
+echo "clean-up finished"
+
+echo "*****************************************************"
+echo "*****************************************************"
+echo ""
+echo ""
+RUN_BENCHMARK=sjeng
+mkdir proj_results/$RUN_BENCHMARK
+echo "running $RUN_BENCHMARK"
+echo "running with LRURP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=LRURP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_LRURP.txt
+
+echo "running with Shepherd"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=16 --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=Shepherd -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_Shepherd.txt
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "running with Random RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=RandomRP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_RandomRP.txt
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "running with FIFO RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=FIFORP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_FIFORP.txt
+fi
+echo "*****************************************************"
+echo "*****************************************************"
+
+echo "*****************************************************"
+echo "*****************************************************"
+echo ""
+echo ""
+RUN_BENCHMARK=leslie3d
+mkdir proj_results/$RUN_BENCHMARK
+echo "running $RUN_BENCHMARK"
+echo "running with LRURP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=LRURP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_LRURP.txt
+
+echo "running with Shepherd"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=16 --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=Shepherd -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_Shepherd.txt
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "running with Random RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=RandomRP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_RandomRP.txt
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "running with FIFO RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=FIFORP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_FIFORP.txt
+fi
+echo "*****************************************************"
+echo "*****************************************************"
+
+echo "*****************************************************"
+echo "*****************************************************"
+echo ""
+echo ""
+RUN_BENCHMARK=lbm
+mkdir proj_results/$RUN_BENCHMARK
+echo "running $RUN_BENCHMARK"
+echo "running with LRURP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=LRURP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_LRURP.txt
+
+echo "running with Shepherd"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=16 --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=Shepherd -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_Shepherd.txt
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "running with Random RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=RandomRP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_RandomRP.txt
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "running with FIFO RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=FIFORP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_FIFORP.txt
+fi
+echo "*****************************************************"
+echo "*****************************************************"
+
+echo "*****************************************************"
+echo "*****************************************************"
+echo ""
+echo ""
+RUN_BENCHMARK=astar
+mkdir proj_results/$RUN_BENCHMARK
+echo "running $RUN_BENCHMARK"
+echo "running with LRURP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=LRURP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_LRURP.txt
+
+echo "running with Shepherd"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=16 --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=Shepherd -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_Shepherd.txt
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "running with Random RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=RandomRP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_RandomRP.txt
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "running with FIFO RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=FIFORP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_FIFORP.txt
+fi
+echo "*****************************************************"
+echo "*****************************************************"
+
+echo "*****************************************************"
+echo "*****************************************************"
+echo ""
+echo ""
+RUN_BENCHMARK=milc
+mkdir proj_results/$RUN_BENCHMARK
+echo "running $RUN_BENCHMARK"
+echo "running with LRURP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=LRURP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_LRURP.txt
+
+echo "running with Shepherd"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=16 --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=Shepherd -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_Shepherd.txt
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "running with Random RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=RandomRP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_RandomRP.txt
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "running with FIFO RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=FIFORP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_FIFORP.txt
+fi
+echo "*****************************************************"
+echo "*****************************************************"
+
+echo "*****************************************************"
+echo "*****************************************************"
+echo ""
+echo ""
+RUN_BENCHMARK=namd
+mkdir proj_results/$RUN_BENCHMARK
+echo "running $RUN_BENCHMARK"
+echo "running with LRURP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=LRURP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_LRURP.txt
+
+echo "running with Shepherd"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=16 --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=Shepherd -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_Shepherd.txt
+
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "running with Random RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=RandomRP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_RandomRP.txt
+fi
+
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "running with FIFO RP"
+echo "#####################################################"
+echo "#####################################################"
+./build/ECE565-ARM/gem5.opt configs/spec/spec_se.py --maxinsts=$RUN_MAX_INST --caches --cpu-type=ArmO3CPU --l2cache --l2_size=$RUN_L2_CACHE --l2_assoc=$RUN_L2_ASSOC --l1i_size=$RUN_L1I_CACHE --l1i_assoc=$RUN_L1_ASSOC --l1d_size=$RUN_L1D_CACHE --l1d_assoc=$RUN_L1_ASSOC --replacement_policy=FIFORP -b $RUN_BENCHMARK
+mv ./m5out/stats.txt ./proj_results/$RUN_BENCHMARK/stats_FIFORP.txt
+fi
+echo "*****************************************************"
+echo "*****************************************************"
+
+echo ""
+echo "SUMMARY:"
+
+echo "################################################################################"
+echo "### PARAMETERS"
+echo "################################################################################" 
+echo ""
+echo ""
+echo "Cache Parameters:"
+echo "Max Instruction Count:     $RUN_MAX_INST"
+echo "L1 Instruction Cache Size: $RUN_L1I_CACHE"
+echo "L1 Data Cache Size:        $RUN_L1D_CACHE"
+echo "L2 Cache Size:             $RUN_L2_CACHE"
+echo "L1 Associativity:          $RUN_L1_ASSOC"
+echo "L2 Associativity:          $RUN_L2_ASSOC"
+echo ""
+echo ""
+
+echo "*****************************************************"
+BENCHMARK_NAME=sjeng
+echo "$BENCHMARK_NAME result"
+echo "LRURP:"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
+echo "Shepherd"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "RandomRP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
+fi
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "FIFORP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
+fi
+echo "*****************************************************"
+BENCHMARK_NAME=leslie3d
+echo "$BENCHMARK_NAME result"
+echo "LRURP:"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
+echo "Shepherd"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "RandomRP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
+fi
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "FIFORP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
+fi
+echo "*****************************************************"
+BENCHMARK_NAME=lbm
+echo "$BENCHMARK_NAME result"
+echo "LRURP:"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
+echo "Shepherd"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "RandomRP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
+fi
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "FIFORP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
+fi
+echo "*****************************************************"
+BENCHMARK_NAME=astar
+echo "$BENCHMARK_NAME result"
+echo "LRURP:"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
+echo "Shepherd"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "RandomRP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
+fi
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "FIFORP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
+fi
+echo "*****************************************************"
+BENCHMARK_NAME=milc
+echo "$BENCHMARK_NAME result"
+echo "LRURP:"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
+echo "Shepherd"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "RandomRP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
+fi
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "FIFORP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
+fi
+echo "*****************************************************"
+BENCHMARK_NAME=namd
+echo "$BENCHMARK_NAME result"
+echo "LRURP:"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_LRURP.txt -e 'cpi'
+echo "Shepherd"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_Shepherd.txt -e 'cpi'
+if [ "$RANDOM_RP" -eq 1 ]; then
+echo "RandomRP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_RandomRP.txt -e 'cpi'
+fi
+if [ "$FIFO_RP" -eq 1 ]; then
+echo "FIFORP"
+grep -r ./proj_results/$BENCHMARK_NAME/stats_FIFORP.txt -e 'cpi'
+fi
+
+
+
+
+
+
